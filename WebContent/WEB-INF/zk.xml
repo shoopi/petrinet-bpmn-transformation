@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<device-config>
+		<device-type>ajax</device-type>
+		<automatic-timeout> false </automatic-timeout>
+		<timeout-uri>/gui/timeout.zul</timeout-uri>
+		<session-timeout>-1</session-timeout>
+	</device-config>
+	<session-config>
+		<automatic-timeout>false</automatic-timeout>
+    	<session-timeout>-1</session-timeout>
+    	<timer-keep-alive>true</timer-keep-alive>
+	</session-config>
+</zk>
