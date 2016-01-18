@@ -60,6 +60,7 @@ public class GraphUtil extends JApplet implements MouseWheelListener {
 		jgraphX = new JGraphXAdapter<Node, Arc>(graph);
         graphComponent = new mxGraphComponent(jgraphX);        
 
+        /*
         JFrame frame2 = new JFrame();
         frame2.getContentPane().add(new JScrollPane (graphComponent));
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +71,7 @@ public class GraphUtil extends JApplet implements MouseWheelListener {
         frame2.setVisible(true);
         frame2.setTitle(title);
         frame2.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        
+        */
         try {
 	        jgraphX.getModel().beginUpdate();
 	        for (mxCell cell : jgraphX.getVertexToCellMap().values()) {

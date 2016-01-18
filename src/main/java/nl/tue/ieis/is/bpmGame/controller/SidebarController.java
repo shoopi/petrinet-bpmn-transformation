@@ -1,6 +1,8 @@
 package main.java.nl.tue.ieis.is.bpmGame.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.java.nl.tue.ieis.is.bpmGame.activiti.ProcessDefinitionFunctions;
 
@@ -17,6 +19,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Timer;
@@ -26,6 +29,9 @@ public class SidebarController extends SelectorComposer<Component>{
 	private static final long serialVersionUID = -2986835198661573761L;
 	@Wire	private Grid sidebarGrid;
 	@Wire	private Timer sidebarTimer;
+	@Wire	private Menuitem removeProcessDefinition;
+	@Wire	private	Menuitem renameProcessDefinition;
+
 	private ProcessDefinitionFunctions defFunc = new ProcessDefinitionFunctions();
 
 	
@@ -45,16 +51,17 @@ public class SidebarController extends SelectorComposer<Component>{
 		}
 	}
 
-	private Row constructSidebarRow(final String label) {
+	private Row constructSidebarRow(final String filename, final String deploymentId) {
 		final Row row = new Row();
 		try {
-			Label lab = new Label(label);
+			Label lab = new Label(filename);
 			row.appendChild(lab);
 			row.setSclass("sidebar-fn");
 			EventListener<Event> actionListener = new SerializableEventListener<Event>() {
 				private static final long serialVersionUID = 1L;
 				public void onEvent(Event event) throws Exception {
-					(Sessions.getCurrent()).setAttribute("selected" , label);
+					(Sessions.getCurrent()).setAttribute("selected" , deploymentId);
+					(Sessions.getCurrent()).setAttribute("filename" , filename);
 					Executions.sendRedirect("");
 				}
 			};
@@ -71,7 +78,7 @@ public class SidebarController extends SelectorComposer<Component>{
 			User user = (User) (Sessions.getCurrent()).getAttribute("user");
 			if(user != null) {
 				int prevItems = sidebarGrid.getRows().getVisibleItemCount();
-				int currentItems = defFunc.getAllProcessModelsForUser(user.getId()).size();
+				int currentItems = defFunc.getAllUploadedProcessModelsForUser(user.getId()).size();
 				if(prevItems != currentItems) {
 					sidebarGrid.getRows().getChildren().clear();
 					constructSidebarForUser(user.getId());
@@ -86,13 +93,13 @@ public class SidebarController extends SelectorComposer<Component>{
 	}
 	
 	private void constructSidebarForUser(String userId) {
-		List<String> processSpecificaionIDs = defFunc.getAllProcessModelsForUser(userId);
+		Map<String, String> processModelNames = defFunc.getAllUploadedProcessModelsForUser(userId);
 		Rows rows = sidebarGrid.getRows();
-		for(String id : processSpecificaionIDs) {
-			Row row = constructSidebarRow(id);
+		for(Entry<String, String> entry : processModelNames.entrySet()) {
+			Row row = constructSidebarRow(entry.getValue(), entry.getKey());
 			rows.appendChild(row);
 			String specId = (String) (Sessions.getCurrent()).getAttribute("selected");
-			if(specId != null && id.contentEquals(specId)) {
+			if(specId != null && entry.getKey().contentEquals(specId)) {
 				row.setStyle("background-color: #FFFF99; font-weight: bold;");
 			}
 		}

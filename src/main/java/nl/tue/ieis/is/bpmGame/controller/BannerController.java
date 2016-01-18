@@ -20,7 +20,6 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 
@@ -28,18 +27,11 @@ public class BannerController extends SelectorComposer<Component> {
 
 	private static final long serialVersionUID = -6360927128036523270L;
 	
-	@Wire	private Window loginWin;
-	@Wire	private Button initLoginBtn;
-	@Wire	private Button initRegBtn;
-	@Wire	private Textbox username;
-	@Wire	private Textbox password;
-	@Wire	private Label loginMsgLabel; 
-	@Wire	private Div userInfo;
-	@Wire	private Div bannerWin;
-	@Wire	private Image userPic;
-	@Wire 	private Label userLabel;
-	@Wire	private Window regWin;
-	@Wire	private Button logoutBtn;
+	@Wire	private 	Window 	loginWin, regWin;
+	@Wire	private 	Button 	initLoginBtn, initRegBtn, logoutBtn;
+	@Wire	private 	Div 	userInfo, bannerWin;
+	@Wire	private 	Image 	userPic;
+	@Wire 	private 	Label 	userLabel;
 		
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -99,7 +91,7 @@ public class BannerController extends SelectorComposer<Component> {
 			}
 			initLoginBtn.setVisible(false);
 			initRegBtn.setVisible(false);
-			userLabel.setValue(user.getFirstName() + " " + user.getLastName() + " (" + user.getId() + ")");
+			userLabel.setValue(user.getFirstName() + " " + user.getLastName());
 			logoutBtn.setVisible(true);
 		} else {			
 			userInfo.setVisible(false);

@@ -3,6 +3,8 @@ package main.java.nl.tue.ieis.is.bpmGame.activiti;
 import java.io.File;
 import java.util.Map;
 
+import main.java.nl.tue.ieis.is.bpmGame.data.TableConfiguration;
+
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.identity.Group;
@@ -31,14 +33,18 @@ public class ActivitiConfig implements Initiator{
 			Group students = processEngine.getIdentityService().newGroup("student");
 			processEngine.getIdentityService().saveGroup(students);
 			
-			User shaya = processEngine.getIdentityService().newUser("shaya");
+			User shaya = processEngine.getIdentityService().newUser("shoopi@gmail.com");
 			shaya.setPassword("shaya");
 			shaya.setFirstName("Shaya");
 			shaya.setLastName("Pourmirza");
 			processEngine.getIdentityService().saveUser(shaya);
-			processEngine.getIdentityService().createMembership("shaya", "admin");
+			processEngine.getIdentityService().createMembership("shoopi@gmail.com", "admin");
 			
 			if(cleanupRepository) deleteAllProcessModel();
+			
+			TableConfiguration tc = new TableConfiguration();
+			tc.createTableDeploymentFilenameUser();
+			
 		}
 	}
 	

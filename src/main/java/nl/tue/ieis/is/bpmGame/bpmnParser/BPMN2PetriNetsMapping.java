@@ -23,7 +23,7 @@ public class BPMN2PetriNetsMapping {
 	//private static Map<String, List<String>> extraPlaces = new HashMap<String, List<String>>();
 	//private static Map<String, List<String>> extraTransitions = new HashMap<String, List<String>>();
 	
-	public static PTNet doMapping(String processDefinitionId) {
+	public static PTNet doMapping(String processDefinitionId, String outputFilename) {
 		ProcessDefinitionFunctions defFunc = new ProcessDefinitionFunctions();
 		PTNet output = new PTNet();
 		
@@ -232,6 +232,7 @@ public class BPMN2PetriNetsMapping {
 				}
 			}
 		}
+		output.setFileName(outputFilename);
 		return output;
 	}
 

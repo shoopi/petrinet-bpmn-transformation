@@ -3,14 +3,15 @@ package main.java.nl.tue.ieis.is.bpmGame.activiti;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import main.java.nl.tue.ieis.is.bpmGame.controller.ErrorController;
+import main.java.nl.tue.ieis.is.bpmGame.data.TableConfiguration;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.repository.Deployment;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
@@ -18,36 +19,44 @@ public class ProcessDefinitionFunctions {
 	
 	private ProcessEngine processEngine = ActivitiConfig.processEngine;
 	private RepositoryService repositoryService = processEngine.getRepositoryService();
-
-	public String deployProcessDefinition(String userId, String fileName, InputStream file) {
+	private TableConfiguration tc = new TableConfiguration();
+	
+	public String deployProcessDefinition(String userId, String fileName, InputStream file, int dupIndex) {
 		try {
-			String deploymentId = repositoryService.createDeployment().name(userId).
-					addInputStream(fileName + "20.xml", file)
-					//.disableBpmnValidation()
-					.deploy().getId();
-			System.out.println(userId + " have deployed " + repositoryService.createDeploymentQuery().deploymentName(userId).count() + " process definition(s).");
-			
+			if(tc.isSameFileName(userId, fileName)) {
+				return "DUPLICATED_FILE_NAME";
+			}
+			String newFilename = fileName.substring(0,fileName.length()-dupIndex);
+			String deploymentId = repositoryService.createDeployment()
+					.name(userId)					
+					.addInputStream(newFilename + "20.xml", file)
+					.deploy()
+					.getId();
+			System.out.println(userId + " has uploaded " + repositoryService.createDeploymentQuery().deploymentName(userId).count() + " process definition(s).");
+			tc.addDeploymentFilenameUser(deploymentId, fileName, userId);
 			return deploymentId;
-			
 		} catch (Exception e) {
 			ErrorController.errors.add(e.getMessage());
-			//e.printStackTrace();
 			return null;
 		}
 	}
 	
+	public String getProcessDefinitionId(String deploymentId) {
+		 return repositoryService.createProcessDefinitionQuery().deploymentId(deploymentId).singleResult().getId();
+	}
+	
+	public String getDeploymentId(String processDefinitionId) {
+		 return repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult().getDeploymentId();
+	}
+	
 	public InputStream generateProcessImageWithDeploymentId(String deploymentId) {
 		try{
-			int deploymnetSize = (int) repositoryService.createDeploymentQuery().deploymentId(deploymentId).count();
-			String definitionId = repositoryService.createProcessDefinitionQuery().deploymentId(deploymentId).active().list().get(deploymnetSize-1).getId();
+			String definitionId = getProcessDefinitionId(deploymentId);
 			ProcessDiagramGenerator pdg = new DefaultProcessDiagramGenerator();
-			BpmnModel model = repositoryService.getBpmnModel(definitionId);
-			//repositoryService.createDeploymentQuery().deploymentId(deploymentId).
-			
+			BpmnModel model = repositoryService.getBpmnModel(definitionId);			
 			InputStream imageStream = pdg.generatePngDiagram(model);
 			return imageStream;
 		} catch(Exception e) {
-			//e.printStackTrace();
 			return null;
 		}
 	}
@@ -65,19 +74,23 @@ public class ProcessDefinitionFunctions {
 		}
 	}
 	
-	public List<String> getAllProcessModelsForUser(String userId) {
-		List<String> specIDs = new ArrayList<String>();
-		for(Deployment d : repositoryService.createDeploymentQuery().deploymentName(userId).list()) {
-			String specId = repositoryService.createProcessDefinitionQuery().deploymentId(d.getId()).singleResult().getId();
-			specIDs.add(specId);
-		}
-		return specIDs;
+	public Map<String,String> getAllUploadedProcessModelsForUser(String userId) {
+		return tc.loadAllDeploymentFileForUser(userId);
+		
 	}
 	
 	public BpmnModel getBpmnModel (String processDefinitionId) {
 		return repositoryService.getBpmnModel(processDefinitionId);
 	}
 	
+	public void deleteProcessModelFromRepositoryByDeploymentId(String deploymentId) {
+		repositoryService.deleteDeployment(deploymentId);
+		tc.removeDeploymentFilenameUser(deploymentId);
+	}
 	
+	public void deleteProcessModelFromRepositoryByDefinitionId(String definitionId) {
+		String deploymentId = getDeploymentId(definitionId);
+		deleteProcessModelFromRepositoryByDeploymentId(deploymentId);
+	}
 	
 }

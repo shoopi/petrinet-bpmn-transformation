@@ -1,9 +1,13 @@
 <div hflex="1" vflex="1" apply="main.java.nl.tue.ieis.is.bpmGame.controller.SidebarController">
-	<grid vflex="1" sclass="sidebar" id="sidebarGrid" emptyMessage="No Process Definition in the repository">
+	<grid vflex="1" sclass="sidebar" id="sidebarGrid" emptyMessage="No Process Definition in the repository" context="selectedProcessModel">
 		<columns>
 			<column/>
 		</columns>
 		<rows/>
 	</grid>
+	<menupopup id="selectedProcessModel" >
+		<menuitem image="/imgs/del.png" label="Select Route"  id="removeProcessDefinition"/>
+		<menuitem image="/imgs/edit.png" label="Select Route"  id="renameProcessDefinition"/>
+	</menupopup>
 	<timer id="sidebarTimer" delay="2000" onClientInfo="self.start()" repeats="true"/>
 </div>

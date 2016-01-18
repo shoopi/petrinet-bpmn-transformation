@@ -1,19 +1,19 @@
 <?init class="main.java.nl.tue.ieis.is.bpmGame.activiti.ActivitiConfig"?>
-<?page id="BPMGame" title="1BM05 BPM Game" cacheable="true" automaticTimeout="false"?>
+<?page id="BPMGame" title="BPMN2Petri Net Transforamtion" cacheable="true" automaticTimeout="false"?>
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <?link href="/imgs/favicon.ico" rel="shortcut icon" type="image/x-icon" ?>
 <zk xmlns:w="client">
 	<borderlayout hflex="6" height="100%" width="100%">
-		<north height="15%" border="none" autoscroll="true">
+		<north border="none" autoscroll="true">
 			<include src="/gui/banner.zul"/>
 		</north>
-		<west width="15%" border="none" collapsible="true" splittable="true" title="Process Repository" hflex="5" autoscroll="true">
+		<west width="17%" border="none" collapsible="true" splittable="true" title="Process Repository" autoscroll="true">
 			<include src="/gui/sidebar.zul"/>
 		</west>
 		<center id="mainContent" autoscroll="true" hflex="1">
 			<include src="/gui/main.zul"/>
 		</center>
-		<south height="5%" border="none" collapsible="true" >
+		<south border="none" collapsible="true" >
 			<include src="/gui/footer.zul"/>
 		</south>
 	</borderlayout>
