@@ -18,7 +18,7 @@ Following libraries have been used:
 -----------------------------------------------------------------------------------------------------------
 
 | Library         | Description           					 | License			        				 |
-| --------------- |:----------------------------------------:| -----------------------------------------:|
+| :-------------- |:-----------------------------------------| :---------------------------------------- |
 | Activiti 		  | [BPMN Process Modelling and Validation]  | Apache License 2.0						 |
 | Appache Common  | [File uploader, String maker]	   		 | Apache License 2.0						 |
 | H2			  | [Database Interface]	   				 | Eclipse Public License 1.0 (EPL-1.0)		 |
