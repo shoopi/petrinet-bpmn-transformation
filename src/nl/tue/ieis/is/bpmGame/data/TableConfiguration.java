@@ -12,17 +12,22 @@ public class TableConfiguration {
 
 	static Connection conn = DatabaseConfig.getConnection();
 	
-	public void createTableDeploymentFilenameUser() {
+	public void createTableDeploymentFilenameUser(boolean drop) {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
 			try {
-				stmt.executeUpdate("DROP TABLE DEPLOYMENT_FILENAME_USER");
+				if(drop)
+					stmt.executeUpdate("DROP TABLE DEPLOYMENT_FILENAME_USER");
 			} catch(java.sql.SQLException ex) {System.out.println(ex.getMessage());}
 			String sql = "CREATE TABLE DEPLOYMENT_FILENAME_USER (DEPLOYMENT_ID VARCHAR(50) NOT NULL, FILENAME VARCHAR(50), USERID VARCHAR(50) NOT NULL, PRIMARY KEY (DEPLOYMENT_ID))";
-			stmt.executeUpdate(sql);
-			stmt.close();
-			System.out.println("DEPLOYMENT_FILENAME_USER HAS BEEN CREATED.");
+			try {
+				stmt.executeUpdate(sql);
+				stmt.close();
+				System.out.println("DEPLOYMENT_FILENAME_USER HAS BEEN CREATED.");
+			} catch(Exception e) {
+				System.out.println("DEPLOYMENT_FILENAME_USER ALREADY EXISTS.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

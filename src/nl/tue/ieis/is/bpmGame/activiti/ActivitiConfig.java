@@ -58,8 +58,10 @@ public class ActivitiConfig implements Initiator{
 
 			if(cleanupRepository) {
 				deleteAllProcessModel();
-				tc.createTableDeploymentFilenameUser();
-			}			
+				tc.createTableDeploymentFilenameUser(true);
+			} else {
+				tc.createTableDeploymentFilenameUser(false);
+			}
 		}
 	}
 	
