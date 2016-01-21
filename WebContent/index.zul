@@ -1,4 +1,4 @@
-<?init class="main.java.nl.tue.ieis.is.bpmGame.activiti.ActivitiConfig"?>
+<?init class="nl.tue.ieis.is.bpmGame.activiti.ActivitiConfig"?>
 <?page id="BPMGame" title="BPMN2Petri Net Transforamtion" cacheable="true" automaticTimeout="false"?>
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <?link href="/imgs/favicon.ico" rel="shortcut icon" type="image/x-icon" ?>

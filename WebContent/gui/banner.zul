@@ -1,4 +1,4 @@
-<div sclass="banner"  apply="main.java.nl.tue.ieis.is.bpmGame.controller.BannerController" id="bannerWin">
+<div sclass="banner"  apply="nl.tue.ieis.is.bpmGame.controller.BannerController" id="bannerWin">
 	<div sclass="top-banner">
 		<div sclass="headerText">
 			<vbox>
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	
-	<window id="loginWin" title="Login" width="450px" visible="false" closable="true" border="normal" apply="main.java.nl.tue.ieis.is.bpmGame.controller.UserController">
+	<window id="loginWin" title="Login" width="450px" visible="false" closable="true" border="normal" apply="nl.tue.ieis.is.bpmGame.controller.UserController">
 		<caption image="/imgs/login.png" label="Login Form"/>
         <grid sclass="loginGrid">
             <columns>
@@ -42,7 +42,7 @@
         </grid>
     </window>
 
-    <window id="regWin" title="Register" width="450px" style="height:470px; overflow-y:scroll; padding:10px; margin:10px;" visible="false" closable="true" border="normal" apply="main.java.nl.tue.ieis.is.bpmGame.controller.UserController">
+    <window id="regWin" title="Register" width="450px" style="height:470px; overflow-y:scroll; padding:10px; margin:10px;" visible="false" closable="true" border="normal" apply="nl.tue.ieis.is.bpmGame.controller.UserController">
         <caption image="/imgs/register.png" label="Registration Form"/>
         <grid sclass="registerGrid" height="100%">
             <columns>

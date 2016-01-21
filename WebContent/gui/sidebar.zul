@@ -1,4 +1,4 @@
-<div hflex="1" vflex="1" apply="main.java.nl.tue.ieis.is.bpmGame.controller.SidebarController">
+<div hflex="1" vflex="1" apply="nl.tue.ieis.is.bpmGame.controller.SidebarController">
 	<grid vflex="1" sclass="sidebar" id="sidebarGrid" emptyMessage="No Process Definition in the repository" context="selectedProcessModel">
 		<columns>
 			<column/>
