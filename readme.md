@@ -16,8 +16,11 @@ Following libraries have been used:
 
 # Library		
 -----------------------------------------------------------------------------------------------------------
-··* Activiti 		[BPMN Process Modelling and Validation] 				Apache License 2.0
-··* Appache Common	[File uploader, String maker]	   					Apache License 2.0
-··* H2			[Database Interface]	   						clipse Public License 1.0 (EPL-1.0)
-··* jgraph		[Graph Designer (we used this to draw the output Petri net)]	   	BSD licenses
-··* ZK			[User Interface Designer]	 					GNU Lesser General Public License (LGPL)
+
+| Library         | Description           					 | License			        				 |
+| --------------- |:----------------------------------------:| -----------------------------------------:|
+| Activiti 		  | [BPMN Process Modelling and Validation]  | Apache License 2.0						 |
+| Appache Common  | [File uploader, String maker]	   		 | Apache License 2.0						 |
+| H2			  | [Database Interface]	   				 | Eclipse Public License 1.0 (EPL-1.0)		 |
+| jgraph		  | [Graph Designer]	   					 | BSD licenses								 |
+| ZK			  | [User Interface Designer]	 			 | GNU Lesser General Public License (LGPL)	 |
