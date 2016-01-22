@@ -10,12 +10,12 @@ To get started using the BPMN 2 Petri Nets Transformation application right away
  		http://islab1.ieis.tue.nl:6411/Transformation/ 
  
  The source code, provided in Git, is an Eclipse JavaEE project. 
- For further development, one can clone and import the project as a Eclipse Project into your editor. 
+ For further development, you can download/clone the project and import it as an Eclipse Project into your editor. 
 
+# Libraries	
+-----------------------------------------------------------------------------------------------------------
 Following libraries have been used:
 
-# Library		
------------------------------------------------------------------------------------------------------------
 
 | Library         | Description           					 | License			        				 |
 | :-------------- |:-----------------------------------------| :---------------------------------------- |
